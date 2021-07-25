@@ -1,11 +1,13 @@
 import express from "express";
 import morgan from "morgan";
+import * as DB from "./db.js";
 
 const app = express();
 app.use(morgan("combined"));
 
-app.get("/", (req, res) => {
-    res.send("Hello World");
+app.get("/", async (req, res) => {
+    const r = await DB.getNeighborhoods();
+    res.json(r);
 });
 
 app.use((req, res) => {
