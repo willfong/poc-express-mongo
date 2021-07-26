@@ -22,11 +22,13 @@ client.connect(async err => {
 });
 
 export const getRestaurants = async () => {
-    const results = await Restaurants.find({}, {projection: { _id: 1, restaurant_id: 1, name: 1 },}).toArray();
+    const projection = { _id: 1, restaurant_id: 1, name: 1 };
+    const results = await Restaurants.find({}, { projection }).toArray();
     return results;
 }
 
 export const getNeighborhoods = async () => {
-    const results = await Neighborhoods.find({}, {projection: { _id: 1, name: 1 },}).toArray();
+    const projection = { _id: 1, name: 1 };
+    const results = await Neighborhoods.find({}, { projection }).toArray();
     return results;
 }
