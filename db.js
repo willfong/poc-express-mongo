@@ -8,6 +8,7 @@ const client = new MongoClient(dbHost, { useNewUrlParser: true, useUnifiedTopolo
 let db = false;
 let Restaurants;
 let Neighborhoods;
+let Users;
 
 client.connect(async err => {
     if (err) {
@@ -19,6 +20,7 @@ client.connect(async err => {
     db = client.db(dbName);
     Restaurants = db.collection("restaurants");
     Neighborhoods = db.collection("neighborhoods");
+    Users = db.collection("users");
 });
 
 export const getRestaurants = async () => {
@@ -31,4 +33,15 @@ export const getNeighborhoods = async () => {
     const projection = { _id: 1, name: 1 };
     const results = await Neighborhoods.find({}, { projection }).toArray();
     return results;
+}
+
+export const usersNew = async (name) => {
+    const doc = {name};
+    const result = await Users.insertOne(doc);
+    return result;
+}
+
+export const usersGet = async () => {
+    const result = await Users.find({}).toArray();
+    return result;
 }
