@@ -1,13 +1,13 @@
 import express from "express";
 import morgan from "morgan";
-import * as DB from "./db.js";
+import * as Restaurants from "./restaurants.js"
 
 const app = express();
 app.use(morgan("combined"));
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", async (req, res) => {
-    const r = await DB.usersGet();
+    const r = await Restaurants.getAll();
     res.json(r);
 });
 
